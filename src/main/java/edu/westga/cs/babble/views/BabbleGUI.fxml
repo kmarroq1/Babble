@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane prefHeight="201.0" prefWidth="347.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+   <children>
+      <GridPane layoutX="5.0" prefHeight="216.0" prefWidth="336.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.6666259765625" minWidth="10.0" prefWidth="143.9999796549479" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="257.33330027262366" minWidth="10.0" prefWidth="190.0000203450521" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="160.66667683919272" minHeight="10.0" prefHeight="148.33332316080728" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="81.99999237060547" minHeight="10.0" prefHeight="34.66664632161459" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="35.00002034505209" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="126.0" prefWidth="371.0" GridPane.columnSpan="2">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="41.0" text="Tiles">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ListView orientation="HORIZONTAL" prefHeight="42.0">
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </ListView>
+                  <Label prefHeight="23.0" prefWidth="78.0" text="Your Word">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ListView orientation="HORIZONTAL" prefHeight="42.0">
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </ListView>
+               </children>
+            </VBox>
+            <HBox prefHeight="47.0" prefWidth="194.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Reset" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Play Word" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="28.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="40.0" text="Score: " />
+                  <TextField prefHeight="25.0" prefWidth="145.0" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
-
