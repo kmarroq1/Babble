@@ -49,6 +49,8 @@ public class BabbleController implements Initializable {
 		this.playedTiles = new PlayedWord();
 		this.displayStarterTiles();
 		this.displayWordCreatedTiles();
+		this.resetButton();
+		this.playWordButton();
 	}
 
 	/**
@@ -119,6 +121,45 @@ public class BabbleController implements Initializable {
 				}
 				BabbleController.this.tiles.setItems(BabbleController.this.starterTiles.tiles());
 			}
+		});
+	}
+	
+	private void playWordButton() {
+		WordDictionary newDictionary = new WordDictionary();
+		
+		this.playWordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				if (newDictionary.isValidWord(BabbleController.this.playedTiles.getHand())) {
+					BabbleController.this.startNewGame();
+					BabbleController.this.updateScore();
+				} else {
+					//alert
+					System.out.println("Not a valid word");
+				}
+			}
+			
+		});
+	}
+	
+	private void startNewGame() {
+		System.out.println("Valid word");
+	}
+	
+	private void updateScore() {
+		this.currentScore.setText(this.playedTiles.getScore() + "");
+	}
+	
+	private void resetButton() {
+		this.resetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 	}
 
