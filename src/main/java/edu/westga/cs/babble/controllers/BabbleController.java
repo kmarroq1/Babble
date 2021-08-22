@@ -7,8 +7,6 @@ import edu.westga.cs.babble.model.EmptyTileBagException;
 import edu.westga.cs.babble.model.Tile;
 import edu.westga.cs.babble.model.TileBag;
 import edu.westga.cs.babble.model.TileRack;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,7 +23,7 @@ import javafx.util.Callback;
  */
 public class BabbleController implements Initializable {
 	@FXML
-	private ListView<String> tiles;
+	private ListView<Tile> tiles;
 
 	@FXML
 	private ListView<String> wordCreated;
@@ -41,49 +39,45 @@ public class BabbleController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.displayedStarterTiles();
+		this.displayStarterTiles();
 	}
 
 	/**
-	 * Sets up both word racks in GUI.
+	 * Sets up starter tiles rack.
 	 */
-	private void displayedStarterTiles() {
+	private void displayStarterTiles() {
 		TileBag newBag = new TileBag();
 		TileRack starterTiles = new TileRack();
-		ObservableList<String> tileLetters = FXCollections.observableArrayList();
 
 		try {
 			Tile tileDrawn;
-			tileDrawn = newBag.drawTile();
-			starterTiles.append(tileDrawn);
-			tileLetters.add(String.valueOf(tileDrawn.getLetter()));
-
-			Tile secondTile;
-			secondTile = newBag.drawTile();
-			starterTiles.append(secondTile);
-			tileLetters.add(String.valueOf(secondTile.getLetter()));
+			do {
+				tileDrawn = newBag.drawTile();
+				starterTiles.append(tileDrawn);
+			} while (starterTiles.getNumberOfTilesNeeded() > 0);
 
 		} catch (EmptyTileBagException exception) {
 			exception.printStackTrace();
 		}
-		this.tiles.setItems(tileLetters);
 
-		this.tiles.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+		this.tiles.setItems(starterTiles.tiles());
 
+		this.tiles.setCellFactory(new Callback<ListView<Tile>, ListCell<Tile>>() {
 			@Override
-			public ListCell<String> call(ListView<String> tiles) {
+			public ListCell<Tile> call(ListView<Tile> tiles) {
 				return new TileCell();
 			}
 
 		});
-
-		System.out.println(starterTiles.getHand());
 	}
 
-	static class TileCell extends ListCell<String> {
-		public void updateItem(String item, boolean empty) {
+	static class TileCell extends ListCell<Tile> {
+		@Override
+		public void updateItem(Tile item, boolean empty) {
 			super.updateItem(item, empty);
-			super.setText(item);
+			if (!empty && item != null) {
+				super.setText(String.valueOf(item.getLetter()));
+			}
 		}
 	}
 
