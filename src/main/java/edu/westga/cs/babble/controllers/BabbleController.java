@@ -108,7 +108,16 @@ public class BabbleController implements Initializable {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-
+				Tile tileSelected = BabbleController.this.wordCreated.getSelectionModel().getSelectedItem();
+				try {
+					BabbleController.this.playedTiles.remove(tileSelected);
+					BabbleController.this.starterTiles.append(tileSelected);
+				} catch (IllegalArgumentException exception) {
+					return;
+				} catch (TileNotInGroupException exception) {
+					return;
+				}
+				BabbleController.this.tiles.setItems(BabbleController.this.starterTiles.tiles());
 			}
 		});
 	}
