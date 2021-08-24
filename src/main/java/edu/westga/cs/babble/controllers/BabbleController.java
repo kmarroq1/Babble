@@ -174,12 +174,17 @@ public class BabbleController implements Initializable {
 	 * the 'your word' rack back to the starter tile rack.
 	 */
 	private void resetButton() {
-		this.resetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
+		this.resetButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			/**
+			 * Resets current game.
+			 */
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				for (int index = 0; index < BabbleController.this.playedTiles.tiles().size(); index++) {
+					Tile currentTile = BabbleController.this.playedTiles.tiles().get(index);
+					BabbleController.this.starterTiles.append(currentTile);
+				}
+				BabbleController.this.playedTiles.clear();
 			}
 
 		});
