@@ -9,6 +9,7 @@ import edu.westga.cs.babble.model.Tile;
 import edu.westga.cs.babble.model.TileBag;
 import edu.westga.cs.babble.model.TileNotInGroupException;
 import edu.westga.cs.babble.model.TileRack;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import javafx.util.converter.NumberStringConverter;
 
 /**
  * Defines the Babble GUI behavior.
@@ -29,6 +31,7 @@ public class BabbleController implements Initializable {
 	private PlayedWord playedTiles;
 	private TileRack starterTiles;
 	private int scoreTracker;
+	private SimpleIntegerProperty scoreProperty;
 	@FXML
 	private ListView<Tile> tiles;
 
@@ -52,6 +55,7 @@ public class BabbleController implements Initializable {
 		this.displayWordCreatedTiles();
 		this.resetButton();
 		this.playWordButton();
+		this.scoreProperty = new SimpleIntegerProperty(0);
 		this.scoreTracker = 0;
 	}
 
@@ -144,7 +148,9 @@ public class BabbleController implements Initializable {
 					BabbleController.this.updateScore();
 					BabbleController.this.startNewGame();
 				} else {
-					// alert
+					// add alert to scenebuilder
+					// disable in initializer
+					// enable here
 					System.out.println("Not a valid word");
 				}
 			}
@@ -166,7 +172,8 @@ public class BabbleController implements Initializable {
 	 */
 	private void updateScore() {
 		this.scoreTracker += this.playedTiles.getScore();
-		this.currentScore.setText(this.scoreTracker + "");
+		this.scoreProperty.set(this.scoreTracker);
+		this.currentScore.textProperty().bindBidirectional(this.scoreProperty, new NumberStringConverter());
 	}
 
 	/**
