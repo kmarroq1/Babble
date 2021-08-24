@@ -28,6 +28,7 @@ import javafx.util.Callback;
 public class BabbleController implements Initializable {
 	private PlayedWord playedTiles;
 	private TileRack starterTiles;
+	private int scoreTracker;
 	@FXML
 	private ListView<Tile> tiles;
 
@@ -51,6 +52,7 @@ public class BabbleController implements Initializable {
 		this.displayWordCreatedTiles();
 		this.resetButton();
 		this.playWordButton();
+		this.scoreTracker = 0;
 	}
 
 	/**
@@ -98,6 +100,9 @@ public class BabbleController implements Initializable {
 		});
 	}
 
+	/**
+	 * Displays tile rack showing word created by user.
+	 */
 	private void displayWordCreatedTiles() {
 		this.wordCreated.setCellFactory(new Callback<ListView<Tile>, ListCell<Tile>>() {
 			@Override
@@ -123,47 +128,67 @@ public class BabbleController implements Initializable {
 			}
 		});
 	}
-	
+
+	/**
+	 * Sets an action for the play word button. The play word button allows the user
+	 * to check if the word they assembled is an actual word.
+	 */
 	private void playWordButton() {
 		WordDictionary newDictionary = new WordDictionary();
-		
+
 		this.playWordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
 				if (newDictionary.isValidWord(BabbleController.this.playedTiles.getHand())) {
-					BabbleController.this.startNewGame();
 					BabbleController.this.updateScore();
+					BabbleController.this.startNewGame();
 				} else {
-					//alert
+					// alert
 					System.out.println("Not a valid word");
 				}
 			}
-			
+
 		});
 	}
-	
+
+	/**
+	 * Starts a new game.
+	 */
 	private void startNewGame() {
-		System.out.println("Valid word");
+		this.starterTiles.tiles().clear();
+		this.playedTiles.clear();
+		this.displayStarterTiles();
 	}
-	
+
+	/**
+	 * Updates the score displayed.
+	 */
 	private void updateScore() {
-		this.currentScore.setText(this.playedTiles.getScore() + "");
+		this.scoreTracker += this.playedTiles.getScore();
+		this.currentScore.setText(this.scoreTracker + "");
 	}
-	
+
+	/**
+	 * Sets an action for the reset button. The reset button moves all the tiles in
+	 * the 'your word' rack back to the starter tile rack.
+	 */
 	private void resetButton() {
 		this.resetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 	}
 
 	static class TileCell extends ListCell<Tile> {
+		/**
+		 * Updates the GUI.
+		 */
 		@Override
 		public void updateItem(Tile item, boolean empty) {
 			super.updateItem(item, empty);
