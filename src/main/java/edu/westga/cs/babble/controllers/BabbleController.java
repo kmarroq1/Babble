@@ -14,9 +14,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
@@ -148,10 +151,11 @@ public class BabbleController implements Initializable {
 					BabbleController.this.updateScore();
 					BabbleController.this.startNewGame();
 				} else {
-					// add alert to scenebuilder
-					// disable in initializer
-					// enable here
-					System.out.println("Not a valid word");
+					Dialog<String> invalidWordAlert = new Dialog<String>();
+					invalidWordAlert.setTitle("Message");
+					invalidWordAlert.setContentText("Not a valid word");
+					invalidWordAlert.getDialogPane().getButtonTypes().add(new ButtonType("Ok", ButtonData.OK_DONE));
+					invalidWordAlert.showAndWait();
 				}
 			}
 
