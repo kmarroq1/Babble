@@ -13,13 +13,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
@@ -151,15 +150,15 @@ public class BabbleController implements Initializable {
 					BabbleController.this.updateScore();
 					BabbleController.this.startNewGame();
 				} else {
-					Dialog<String> invalidWordAlert = new Dialog<String>();
-					invalidWordAlert.setTitle("Message");
-					invalidWordAlert.setContentText("Not a valid word");
-					invalidWordAlert.getDialogPane().getButtonTypes().add(new ButtonType("Ok", ButtonData.OK_DONE));
-					invalidWordAlert.showAndWait();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Message");
+					alert.setContentText("Not a valid word");
+					alert.showAndWait();
 				}
 			}
 
 		});
+
 	}
 
 	/**
@@ -212,6 +211,7 @@ public class BabbleController implements Initializable {
 				super.setText(null);
 				super.setGraphic(null);
 			} else {
+				super.setAccessibleText(String.valueOf(item.getLetter()));
 				super.setText(String.valueOf(item.getLetter()));
 			}
 		}
