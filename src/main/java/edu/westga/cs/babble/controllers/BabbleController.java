@@ -114,7 +114,7 @@ public class BabbleController implements Initializable {
 		this.wordCreated.setCellFactory(new Callback<ListView<Tile>, ListCell<Tile>>() {
 			@Override
 			public ListCell<Tile> call(ListView<Tile> tiles) {
-				return new PlayedTileCell();
+				return new TileCell();
 			}
 		});
 
@@ -205,19 +205,6 @@ public class BabbleController implements Initializable {
 		/**
 		 * Updates the GUI.
 		 */
-		@Override
-		public void updateItem(Tile item, boolean empty) {
-			super.updateItem(item, empty);
-			if (empty || item == null) {
-				super.setText(null);
-				super.setGraphic(null);
-			} else {
-				super.setText(String.valueOf(item.getLetter()));
-			}
-		}
-	}
-
-	static class PlayedTileCell extends ListCell<Tile> {
 		@Override
 		public void updateItem(Tile item, boolean empty) {
 			super.updateItem(item, empty);
