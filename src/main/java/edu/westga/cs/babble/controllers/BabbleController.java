@@ -171,7 +171,6 @@ public class BabbleController implements Initializable {
 	 * Starts a new game.
 	 */
 	private void startNewGame() {
-		this.starterTiles.tiles().clear();
 		this.playedTiles.clear();
 		this.displayStarterTiles();
 	}
