@@ -32,7 +32,9 @@ import javafx.util.converter.NumberStringConverter;
 public class BabbleController implements Initializable {
 	private PlayedWord playedTiles;
 	private TileRack starterTiles;
+	private TileBag newBag;
 	private int scoreTracker;
+
 	private SimpleIntegerProperty scoreProperty;
 	@FXML
 	private ListView<Tile> tiles;
@@ -53,6 +55,7 @@ public class BabbleController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.starterTiles = new TileRack();
 		this.playedTiles = new PlayedWord();
+		this.newBag = new TileBag();
 		this.displayStarterTiles();
 		this.displayWordCreatedTiles();
 		this.resetButton();
@@ -65,17 +68,20 @@ public class BabbleController implements Initializable {
 	 * Sets up starter tiles rack.
 	 */
 	private void displayStarterTiles() {
-		TileBag newBag = new TileBag();
 		Tile tileDrawn;
 
 		try {
 			do {
-				tileDrawn = newBag.drawTile();
+				tileDrawn = this.newBag.drawTile();
 				this.starterTiles.append(tileDrawn);
 			} while (this.starterTiles.getNumberOfTilesNeeded() > 0);
 
 		} catch (EmptyTileBagException exception) {
-			exception.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Game Over");
+			alert.setHeaderText("Game Over");
+			alert.setContentText("No more moves");
+			alert.showAndWait();
 		}
 
 		this.tiles.setItems(this.starterTiles.tiles());
@@ -165,7 +171,6 @@ public class BabbleController implements Initializable {
 	 * Starts a new game.
 	 */
 	private void startNewGame() {
-		this.starterTiles.tiles().clear();
 		this.playedTiles.clear();
 		this.displayStarterTiles();
 	}
